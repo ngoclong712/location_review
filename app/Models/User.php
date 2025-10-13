@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar_path',
+        'bio',
+        'role',
+        'status',
     ];
 
     /**
@@ -44,5 +48,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getAvatarUrlAttribute(): string
+    {
+        return asset($this->avatar_path ?? 'images/defaults/no-avatar.jpg');
     }
 }
