@@ -9,7 +9,6 @@
         </div>
         <Footer></Footer>
     </div>
-
 </template>
 
 <script setup lang="ts">
@@ -18,15 +17,14 @@ import Header from "../components/common/Header.vue";
 import Footer from "../components/common/Footer.vue";
 import Sidebar from "../components/common/Sidebar.vue";
 
-import { ref,onMounted } from 'vue';
-import { useAuthStore } from "@/stores/auth";
+import { ref,onMounted } from 'vue'
+import { useAuthStore } from "@/stores/auth"
 
 const sidebarItems = [
-    { to: "/admin/banners", label: "Quản lý banner" },
-    { to: "/admin/managers", label: "Quản lý manager" },
-    { to: "/admin/users", label: "Quản lý người dùng" },
-    { to: "/admin/reviews", label: "Duyệt bài review" },
-    { to: "/admin/reports", label: "Xử lí báo cáo" },
+    { to: "/manager/banners", label: "Quản lý banner" },
+    { to: "/manager/users", label: "Quản lý người dùng" },
+    { to: "/manager/reviews", label: "Duyệt bài review" },
+    { to: "/manager/reports", label: "Xử lí báo cáo" },
 ]
 
 const auth = useAuthStore()
@@ -38,6 +36,9 @@ onMounted(() => {
 
     if(auth.user) {
         userName.value = auth.user.name;
+        console.log((auth.user));
     }
 })
 </script>
+
+
