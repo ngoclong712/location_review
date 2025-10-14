@@ -63,11 +63,15 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import api from "@/services/api"; // 🔹 bạn sẽ tạo file này để setup axios (hướng dẫn bên dưới)
+import api from "@/services/api";
+import {useAuthStore} from "@/stores/auth.js";
 
+const router = useRouter();
 const toast = useToast();
 const loading = ref(false);
+const auth = useAuthStore();
 
 const form = ref({
     name: "",
@@ -77,7 +81,6 @@ const form = ref({
 });
 
 const handleRegister = async () => {
-    // Validate cơ bản ở FE
     if (!form.value.name || !form.value.email || !form.value.password) {
         toast.error("Vui lòng nhập đầy đủ thông tin!");
         return;
@@ -91,22 +94,28 @@ const handleRegister = async () => {
     loading.value = true;
 
     try {
-        const response = await api.post("/register", form.value);
+        const response = await api.post("/auth/register", form.value);
 
         if (response.data.success) {
-            toast.success(response.data.message || "Đăng ký thành công!");
-            // reset form
+            const user = response.data.data;
+
+            auth.setUser(user);
+            toast.success("Đăng ký thành công!");
+
+            // Reset form
             form.value = {
                 name: "",
                 email: "",
                 password: "",
                 password_confirmation: "",
             };
+
+            router.push("/");
         } else {
             toast.error(response.data.message || "Đăng ký thất bại!");
         }
     } catch (error) {
-        if (error.response && error.response.status === 422) {
+        if (error.response?.status === 422) {
             const errors = error.response.data.errors;
             if (errors) {
                 Object.values(errors).forEach((msgs) =>
