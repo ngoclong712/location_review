@@ -6,6 +6,8 @@ import Register from '../views/auth/Register.vue'
 
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import Home from '../views/Home.vue'
+import EditProfile from '../views/profile/EditProfile.vue'
+import ChangePassword from '../views/profile/ChangePassword.vue'
 
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import AdminBanners from "@/views/admin/Banners.vue";
@@ -21,6 +23,7 @@ import ManagerUsers from "@/views/manager/Users.vue";
 import ManagerReviews from "@/views/manager/Reviews.vue";
 import ManagerReports from "@/views/manager/Reports.vue";
 
+
 import Test from "@/views/Test.vue";
 
 const routes = [
@@ -32,7 +35,19 @@ const routes = [
                 path: '',
                 name: 'home',
                 component: Home,
-            }
+            },
+            {
+                path: 'profile/edit',
+                name: 'profile.edit',
+                component: EditProfile,
+                meta: { requiresAuth: true }, // để sau check login
+            },
+            {
+                path: 'profile/change-password',
+                name: 'profile.changePassword',
+                component: ChangePassword,
+                meta: { requiresAuth: true },
+            },
         ]
     },
     {
@@ -58,7 +73,7 @@ const routes = [
     {
         path: '/admin',
         component: AdminLayout,
-        meta: { roles: [2,3] },
+        meta: { roles: [2,3], requiresAuth: true },
         children: [
             { path: '', redirect: { name: 'admin.banners' } },
             { path: 'banners', name: 'admin.banners', component: AdminBanners },
@@ -72,7 +87,7 @@ const routes = [
     {
         path: '/manager',
         component: ManagerLayout,
-        meta: { roles: [2] },
+        meta: { roles: [2], requiresAuth: true },
         children: [
             { path: '', redirect: { name: 'manager.banners' } },
             { path: 'banners', name: 'manager.banners', component: ManagerBanners },

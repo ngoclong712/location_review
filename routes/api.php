@@ -15,4 +15,7 @@ Route::post('/banner', [BannerController::class, 'store'])->name('api.banner.sto
 Route::put('/banner/{banner}', [BannerController::class, 'update'])->name('api.banner.update');
 Route::delete('/banner/{banner}', [BannerController::class, 'destroy'])->name('api.banner.destroy');
 
+Route::get('/badge', [BadgeController::class, 'index'])->name('api.badge');
 Route::post('/badge', [BadgeController::class, 'store'])->name('api.badge.store');
+Route::put('/badge/{badge}', [BadgeController::class, 'update'])->name('api.badge.update');
+Route::delete('/badge/{badge}', [BadgeController::class, 'destroy'])->name('api.badge.destroy');
