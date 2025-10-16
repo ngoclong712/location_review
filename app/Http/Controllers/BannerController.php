@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Config\StoreBannerRequest;
-use App\Http\Requests\Config\UpdateBannerRequest;
 use Illuminate\Http\Request;
 use App\Models\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class BannerController extends Controller
 {
@@ -36,7 +34,6 @@ class BannerController extends Controller
             $filename = time() . '_' . $file->getClientOriginalName();
             $path = '/images/banners/' . $filename;
 
-            // Lưu file vào public/images/banners
             $file->move(public_path('images/banners'), $filename);
 
             $banner = Config::create([
