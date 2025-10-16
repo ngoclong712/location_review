@@ -9,6 +9,7 @@ import Home from '../views/Home.vue'
 
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import AdminBanners from "@/views/admin/Banners.vue";
+import AdminBadges from "@/views/admin/Badges.vue";
 import AdminManagers from "@/views/admin/Managers.vue";
 import AdminUsers from "@/views/admin/Users.vue";
 import AdminReviews from "@/views/admin/Reviews.vue";
@@ -57,10 +58,11 @@ const routes = [
     {
         path: '/admin',
         component: AdminLayout,
-        meta: { roles: [3] },
+        meta: { roles: [2,3] },
         children: [
             { path: '', redirect: { name: 'admin.banners' } },
             { path: 'banners', name: 'admin.banners', component: AdminBanners },
+            { path: 'badges', name: 'admin.badges', component: AdminBadges },
             { path: 'managers', name: 'admin.managers', component: AdminManagers },
             { path: 'users', name: 'admin.users', component: AdminUsers },
             { path: 'reviews', name: 'admin.reviews', component: AdminReviews },
