@@ -41,6 +41,13 @@
                             >
                                 Edit Profile
                             </RouterLink>
+                            <RouterLink
+                                to="/profile/change-password"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-lg"
+                                @click="menuOpen = false"
+                            >
+                                Change Password
+                            </RouterLink>
 
                             <button
                                 @click="() => { handleLogout(); menuOpen = false }"
