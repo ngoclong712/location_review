@@ -54,4 +54,10 @@ class User extends Authenticatable
     {
         return asset($this->avatar_path ?? 'images/defaults/no-avatar.jpg');
     }
+
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'user_badges')
+            ->withTimestamps();
+    }
 }
