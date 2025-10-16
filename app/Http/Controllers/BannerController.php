@@ -38,7 +38,7 @@ class BannerController extends Controller
 
             $banner = Config::create([
                 'key' => $this->configKey,
-                'value' => $path, // không có "/" ở đầu
+                'value' => $path,
                 'is_public' => 0
             ]);
 
@@ -71,6 +71,12 @@ class BannerController extends Controller
 
     public function destroy(Config $banner)
     {
+        if($banner->value) {
+            $oldPath = public_path($banner->value);
+            if(file_exists($oldPath)) {
+                unlink($oldPath);
+            }
+        }
         $banner->delete();
         return $this->successResponse($banner);
     }
