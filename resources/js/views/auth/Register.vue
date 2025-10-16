@@ -1,14 +1,14 @@
 <template>
     <div class="w-full max-w-md mx-auto border rounded-xl p-6 bg-white">
-        <h1 class="text-2xl font-semibold text-center">Đăng ký</h1>
+        <h1 class="text-2xl font-semibold text-center">Register</h1>
         <form class="mt-6 grid gap-4" @submit.prevent="handleRegister">
             <div class="grid gap-1">
-                <label class="text-sm text-gray-700">Tên hiển thị</label>
+                <label class="text-sm text-gray-700">Display name</label>
                 <input
                     v-model="form.name"
                     type="text"
                     class="border rounded-md px-3 py-2 focus:outline-none focus:ring w-full"
-                    placeholder="Nguyễn Văn A"
+                    placeholder="Your name"
                 />
             </div>
 
@@ -23,7 +23,7 @@
             </div>
 
             <div class="grid gap-1">
-                <label class="text-sm text-gray-700">Mật khẩu</label>
+                <label class="text-sm text-gray-700">Password</label>
                 <input
                     v-model="form.password"
                     type="password"
@@ -33,7 +33,7 @@
             </div>
 
             <div class="grid gap-1">
-                <label class="text-sm text-gray-700">Xác nhận mật khẩu</label>
+                <label class="text-sm text-gray-700">Confirm password</label>
                 <input
                     v-model="form.password_confirmation"
                     type="password"
@@ -47,14 +47,14 @@
                 class="mt-2 inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700 w-full"
                 :disabled="loading"
             >
-                <span v-if="!loading">Đăng ký</span>
-                <span v-else>Đang xử lý...</span>
+                <span v-if="!loading">Register</span>
+                <span v-else>Processing...</span>
             </button>
 
             <p class="text-center text-sm text-gray-600">
-                Đã có tài khoản?
+                Have an account?
                 <RouterLink to="/auth/login" class="text-blue-600 hover:underline">
-                    Đăng nhập
+                    Login
                 </RouterLink>
             </p>
         </form>
@@ -82,12 +82,12 @@ const form = ref({
 
 const handleRegister = async () => {
     if (!form.value.name || !form.value.email || !form.value.password) {
-        toast.error("Vui lòng nhập đầy đủ thông tin!");
+        toast.error("Please fill in all information!");
         return;
     }
 
     if (form.value.password !== form.value.password_confirmation) {
-        toast.error("Mật khẩu xác nhận không khớp!");
+        toast.error("Confirm password is not correct!");
         return;
     }
 
@@ -100,7 +100,7 @@ const handleRegister = async () => {
             const user = response.data.data;
 
             auth.setUser(user);
-            toast.success("Đăng ký thành công!");
+            toast.success("Registration successfully!");
 
             // Reset form
             form.value = {
@@ -112,7 +112,7 @@ const handleRegister = async () => {
 
             router.push("/");
         } else {
-            toast.error(response.data.message || "Đăng ký thất bại!");
+            toast.error(response.data.message || "Registration unsuccessful!");
         }
     } catch (error) {
         if (error.response?.status === 422) {
@@ -123,7 +123,7 @@ const handleRegister = async () => {
                 );
             }
         } else {
-            toast.error(error.response?.data?.message || "Có lỗi xảy ra!");
+            toast.error(error.response?.data?.message || "Error occurred!");
         }
     } finally {
         loading.value = false;

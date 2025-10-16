@@ -3,7 +3,7 @@
         <header class="border-b bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-4">
                 <div class="flex items-center">
-                    <RouterLink to="/" class="font-bold text-lg">Review Địa Điểm</RouterLink>
+                    <RouterLink to="/" class="font-bold text-lg">Rate My Place</RouterLink>
                 </div>
                 <div class="flex items-center">
                     <RouterLink to="/" class="text-sm text-gray-600 hover:text-gray-900">Trang chủ</RouterLink>

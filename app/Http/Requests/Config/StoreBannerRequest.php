@@ -34,10 +34,10 @@ class StoreBannerRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'banner.required' => 'Vui lòng chọn ảnh banner.',
-            'banner.image' => 'Tệp phải là ảnh.',
-            'banner.mimes' => 'Chỉ chấp nhận định dạng jpeg, png, jpg, gif.',
-            'banner.max' => 'Kích thước ảnh tối đa là 2MB.',
+            'banner.required' => 'Please select an image',
+            'banner.image' => 'File must be an image',
+            'banner.mimes' => 'Only png,jpg,jpeg files are allowed',
+            'banner.max' => 'Maximum allowed file size is 2MB',
         ];
     }
 }

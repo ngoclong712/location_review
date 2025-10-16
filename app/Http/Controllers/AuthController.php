@@ -28,7 +28,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return $this->successResponse($user, 'Đăng ký thành công');
+        return $this->successResponse($user, 'Register successfully');
     }
 
     public function login(LoginRequest $request)
@@ -39,10 +39,10 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            return $this->successResponse($user, 'Đăng nhập thành công');
+            return $this->successResponse($user, 'Login successfully');
         }
         else {
-            return $this->errorResponse('Sai tên thông tin đăng nhập');
+            return $this->errorResponse('Wrong email or password');
         }
     }
 
@@ -52,6 +52,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return $this->successResponse([],'Đăng xuất thành công');
+        return $this->successResponse([],'Logout successfully');
     }
 }

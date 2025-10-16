@@ -21,10 +21,10 @@ import { ref,onMounted } from 'vue'
 import { useAuthStore } from "@/stores/auth"
 
 const sidebarItems = [
-    { to: "/manager/banners", label: "Quản lý banner" },
-    { to: "/manager/users", label: "Quản lý người dùng" },
-    { to: "/manager/reviews", label: "Duyệt bài review" },
-    { to: "/manager/reports", label: "Xử lí báo cáo" },
+    { to: "/admin/banners", label: "Banner management" },
+    { to: "/admin/users", label: "User management" },
+    { to: "/admin/reviews", label: "Approve review" },
+    { to: "/admin/reports", label: "Reports" },
 ]
 
 const auth = useAuthStore()

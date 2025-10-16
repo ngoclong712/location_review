@@ -1,6 +1,6 @@
 <template>
     <div class="w-full max-w-md mx-auto border rounded-xl p-6 bg-white">
-        <h1 class="text-2xl font-semibold text-center">Đăng nhập</h1>
+        <h1 class="text-2xl font-semibold text-center">Login</h1>
 
         <form class="mt-6 grid gap-4" @submit.prevent="handleLogin">
             <div class="grid gap-1">
@@ -14,7 +14,7 @@
             </div>
 
             <div class="grid gap-1">
-                <label class="text-sm text-gray-700">Mật khẩu</label>
+                <label class="text-sm text-gray-700">Password</label>
                 <input
                     v-model="form.password"
                     type="password"
@@ -27,13 +27,13 @@
                 type="submit"
                 class="mt-2 inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 w-full"
             >
-                Đăng nhập
+                Login
             </button>
 
             <p class="text-center text-sm text-gray-600">
-                Chưa có tài khoản?
+                Don’t have an account?
                 <RouterLink to="/auth/register" class="text-blue-600 hover:underline">
-                    Đăng ký
+                    Register
                 </RouterLink>
             </p>
         </form>
@@ -73,21 +73,22 @@ const redirectByRole = () => {
             router.push("/"); // fallback
     }
 };
+
 const handleLogin = async () => {
     try {
         const res = await api.post("/auth/login", form.value);
         if (res.data.success) {
-            toast.success("Đăng nhập thành công!");
+            toast.success("Login successful!");
 
             auth.setUser(res.data.data);
             redirectByRole();
 
         } else {
-            toast.error(res.data.message || "Đăng nhập thất bại!");
+            toast.error(res.data.message || "Login failed!");
         }
     } catch (err) {
-        console.error("Lỗi đăng nhập:", err);
-        toast.error(err.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại!");
+        console.error("Login error:", err);
+        toast.error(err.response?.data?.message || "An error occurred, please try again!");
     }
 };
 </script>

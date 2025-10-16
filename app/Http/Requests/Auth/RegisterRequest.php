@@ -45,14 +45,14 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Vui lòng nhập tên hiển thị.',
-            'name.min' => 'Vui lòng nhập tên có độ dài tối thiểu 2 kí tự',
-            'email.required' => 'Vui lòng nhập email.',
-            'email.email' => 'Email không hợp lệ.',
-            'email.unique' => 'Email này đã được sử dụng.',
-            'password.required' => 'Vui lòng nhập mật khẩu.',
-            'password.min' => 'Mật khẩu tối thiểu 6 ký tự.',
-            'password.confirmed' => 'Xác nhận mật khẩu không khớp.',
+            'name.required' => 'Please enter your name!',
+            'name.min' => 'Please enter at least 2 characters.',
+            'email.required' => 'Please fill in your email!',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'Email already exists.',
+            'password.required' => 'Please fill in your password!',
+            'password.min' => 'Please enter at least 6 characters.',
+            'password.confirmed' => 'Confirm password does not match.',
         ];
     }
 }
