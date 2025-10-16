@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Badge\StoreRequest;
+use App\Http\Requests\Badge\UpdateRequest;
 use App\Models\Badge;
 use Illuminate\Support\Facades\DB;
 
@@ -43,5 +44,53 @@ class BadgeController extends Controller
             DB::rollBack();
             return $this->errorResponse($e->getMessage());
         }
+    }
+
+    public function update(UpdateRequest $request, Badge $badge)
+    {
+        DB::beginTransaction();
+        try {
+            $data = $request->validated();
+            if($request->hasFile('badge')) {
+                if($badge->icon_path) {
+                    $oldPath = public_path($badge->icon_path);
+                    if(file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
+                }
+
+                $file = $request->file('badge');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = '/images/badges/' . $filename;
+                $file ->move(public_path('images/badges'), $filename);
+
+                $data['icon_path'] = $path;
+            }
+            $badge->update([
+                'name' => $data['name'] ?? $badge->name,
+                'description' => $data['description'] ?? $badge->description,
+                'icon_path' => $data['icon_path'] ?? $badge->icon_path,
+            ]);
+
+            DB::commit();
+            return $this->successResponse($badge);
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse($e->getMessage());
+        }
+    }
+
+    public function destroy(Badge $badge)
+    {
+        if($badge->icon_path) {
+            $oldPath = public_path($badge->icon_path);
+            if(file_exists($oldPath)) {
+                unlink($oldPath);
+            }
+        }
+        
+        $badge->delete();
+        return $this->successResponse($badge);
     }
 }
